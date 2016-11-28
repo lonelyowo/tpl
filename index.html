@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<!--[if lt IE 9 ]><html class="ie ie8" lang="zh-CN"><![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="zh-CN"><!--<![endif]-->
+<head>
+<meta content="telephone=no" name="format-detection">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="x-ua-compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<script src="http://lao.si/js/jquery-2.2.0.min.js"></script>
+<title></title>
+</head>
+
+<body>
+<style>
+* {
+	image-rendering: -moz-crisp-edges;
+	image-rendering: -o-crisp-edges;
+	image-rendering: -webkit-optimize-contrast;
+	image-rendering: optimize-contrast;
+	-ms-interpolation-mode: nearest-neighbor;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	text-rendering: optimizeLegibility;
+}
+
+
+.cssclock {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  font-family: serif;
+}
+.clock_dial {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #f4f4f4;
+  border-radius: 100px;
+  box-shadow: 0 0 0 4px black;
+}
+.clock_dial:before {
+  content: "";
+  position: absolute;
+  width: 96%;
+  height: 96%;
+  left: 2%;
+  top: 2%;
+  border-radius: 100px;
+  box-shadow: 0 0 0 1px black;
+}
+.clock_dial:after {
+  content: "";
+  position: absolute;
+  width: 94%;
+  height: 94%;
+  left: 3%;
+  top: 3%;
+  border-radius: 100px;
+  box-shadow: 0 0 0 1px black;
+}
+.clock_axis {
+  position: absolute;
+  width: 5%;
+  height: 5%;
+  left: 47.5%;
+  top: 47.5%;
+  background-color: black;
+  border-radius: 100px;
+}
+.clock_axis:before {
+  content: "";
+  position: absolute;
+  width: 20%;
+  height: 20%;
+  left: 40%;
+  top: 40%;
+  background-color: #6B6B6B;
+  border-radius: 100px;
+}
+.clock_number span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 16px;
+  height: 90px;
+  margin-left: -8px;
+  margin-top: -90px;
+  transform-origin: 50% 100%;
+  font-size: 16px;
+}
+.clock_number span:nth-of-type(1) {
+  transform: rotate(30deg);
+}
+.clock_number span:nth-of-type(2) {
+  transform: rotate(60deg);
+}
+.clock_number span:nth-of-type(3) {
+  transform: rotate(90deg);
+}
+.clock_number span:nth-of-type(4) {
+  transform: rotate(120deg);
+}
+.clock_number span:nth-of-type(5) {
+  transform: rotate(150deg);
+}
+.clock_number span:nth-of-type(6) {
+  transform: rotate(180deg);
+}
+.clock_number span:nth-of-type(7) {
+  transform: rotate(210deg);
+}
+.clock_number span:nth-of-type(8) {
+  transform: rotate(240deg);
+}
+.clock_number span:nth-of-type(9) {
+  transform: rotate(270deg);
+}
+.clock_number span:nth-of-type(10) {
+  transform: rotate(300deg);
+}
+.clock_number span:nth-of-type(11) {
+  transform: rotate(330deg);
+}
+
+
+
+.clock_hourhand,
+.clock_minutehand,
+.clock_secondhand {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.clock_hourhand:before,
+.clock_hourhand:after,
+.clock_minutehand:before,
+.clock_minutehand:after,
+.clock_secondhand:before,
+.clock_secondhand:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: black;
+}
+.clock_secondhand:before,
+.clock_secondhand:after {
+  color: red;
+}
+
+
+.clock_hourhand:before {
+  margin-left: -3px;
+  margin-top: -60px;
+  border-left: 3px solid transparent;
+  border-bottom: 60px solid currentColor;
+  border-right: 3px solid transparent;
+  -webkit-transform-origin: 50% 100%;
+  -webkit-animation: myfirst 172800s linear infinite;
+}
+.clock_hourhand:after {
+  margin-left: -3px;
+  margin-top: 0;
+  border-left: 3px solid transparent;
+  border-top: 10px solid currentColor;
+  border-right: 3px solid transparent;
+  -webkit-transform-origin: 50% 0;
+  -webkit-animation: myfirst 172800s linear infinite;
+}
+.clock_minutehand:before {
+  margin-left: -2px;
+  margin-top: -80px;
+  border-left: 2px solid transparent;
+  border-bottom: 80px solid currentColor;
+  border-right: 2px solid transparent;
+  -webkit-transform-origin: 50% 100%;
+  -webkit-animation: myfirst 3600s linear infinite;
+}
+.clock_minutehand:after {
+  margin-left: -2px;
+  margin-top: 0;
+  border-left: 2px solid transparent;
+  border-top: 20px solid currentColor;
+  border-right: 2px solid transparent;
+  -webkit-transform-origin: 50% 0;
+  -webkit-animation: myfirst 3600s linear infinite;
+}
+.clock_secondhand:before {
+  margin-left: -1px;
+  margin-top: -90px;
+  border-left: 1px solid transparent;
+  border-bottom: 90px solid currentColor;
+  border-right: 1px solid transparent;
+  -webkit-transform-origin: 50% 100%;
+  -webkit-animation: myfirst 60s linear infinite;
+}
+.clock_secondhand:after {
+  margin-left: -1px;
+  margin-top: 0;
+  border-left: 1px solid transparent;
+  border-top: 30px solid currentColor;
+  border-right: 1px solid transparent;
+  -webkit-transform-origin: 50% 0;
+  -webkit-animation: myfirst 60s linear infinite;
+}
+
+
+@-webkit-keyframes myfirst {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+
+.clock_text {
+  position: absolute;
+  width: 100%;
+  top: 50px;
+  left: 0;
+  text-align: center;
+  font-size: 14px;
+  font-family: 	Microsoft YaHei, sans-serif;
+  font-weight: bold;
+  line-height: 20px;
+  height: 20px;
+}
+.clock_text small {
+  display: block;
+  font-weight: normal;
+  line-height: 16px;
+  height: 16px;
+}
+
+</style>
+
+<div class="cssclock">
+  <div class="clock_dial"></div>
+  <div class="clock_text">
+    <span>Lao.si</span>
+    <small>2017</small>
+  </div>
+  <div class="clock_number">
+    <span>Ⅰ</span>
+    <span>Ⅱ</span>
+    <span>Ⅲ</span>
+    <span>Ⅳ</span>
+    <span>Ⅴ</span>
+    <span>Ⅵ</span>
+    <span>Ⅶ</span>
+    <span>Ⅷ</span>
+    <span>Ⅸ</span>
+    <span>Ⅹ</span>
+    <span>Ⅺ</span>
+    <span>Ⅻ</span>
+  </div>
+  <div class="clock_hourhand"></div>
+  <div class="clock_minutehand"></div>
+  <div class="clock_secondhand"></div>
+  <div class="clock_axis"></div>
+</div>
+
+
+
+<div class="gradient_light_text">
+  <div class="text">iOS 9</div>
+</div>
+
+
+<style>
+@font-face {font-family: 'webfont';
+  src: url('//at.alicdn.com/t/g3nzahmmw2ck57b9.eot'); /* IE9*/
+  src: url('//at.alicdn.com/t/g3nzahmmw2ck57b9.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('//at.alicdn.com/t/g3nzahmmw2ck57b9.woff') format('woff'), /* chrome、firefox */
+  url('//at.alicdn.com/t/g3nzahmmw2ck57b9.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+  url('//at.alicdn.com/t/g3nzahmmw2ck57b9.svg#思源黑体-极细') format('svg'); /* iOS 4.1- */
+}
+
+
+
+.gradient_light_text {
+  background: linear-gradient( #fff, #fff, #f4f4f4 );
+  border-radius: 10px;
+  box-shadow: 0 0 1px rgba(0,0,0,.3), 0 1px 10px rgba(0,0,0,.1);
+  text-align: center;
+  padding: 20px 0;
+}
+.gradient_light_text .text {
+  background: linear-gradient( 177deg, #ffd037, #ffd037, #ffd037, #ffd037, #ffd037, #f77321, #ae60f1, #b576df, #1ca8f5, #67d65e, #67d65e, #67d65e, #67d65e, #67d65e );
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  font-size: 100px;
+  /*font-family: 	Microsoft YaHei, sans-serif;*/
+  font-family: 'webfont';
+  font-weight: 100;
+}
+
+
+</style>
+
+
+
+
+
+
+
+
+<script>
+
+var d = new Date()
+document.write(d.getHours() + "<br>")
+document.write(d.getMinutes() + "<br>")
+document.write(d.getSeconds() + "<br>")
+document.write(d.getMilliseconds())
+
+
+
+
+
+//$(".clock_secondhand").css("transform", "rotate("+ ( d.getSeconds() * 6 ) +"deg)");
+
+//$(".clock_minutehand").css("transform", "rotate("+ ( d.getMinutes() * 6 ) +"deg)");
+
+//$(".clock_hourhand").css("transform", "rotate("+ ( d.getHours() * 30 ) +"deg)");
+
+
+$(".clock_secondhand").css("transform", "rotate("+ ((d.getSeconds() + ( d.getMilliseconds() / 1000 )) * 6 ) +"deg)");
+
+$(".clock_minutehand").css("transform", "rotate("+ ((d.getMinutes() + ( (d.getSeconds() + ( d.getMilliseconds() / 1000 )) / 60 )) * 6 ) +"deg)");
+
+$(".clock_hourhand").css("transform", "rotate("+ ((d.getHours() + ( (d.getMinutes() + ( (d.getSeconds() + ( d.getMilliseconds() / 1000 )) / 60 )) / 60 ) ) * 30 ) +"deg)");
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</body>
+</html>
